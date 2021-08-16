@@ -140,6 +140,8 @@ public class User extends AuditModel {
         this.organisation = organisation;
     }
 
+    public Organisation getOrganisation() { return organisation; };
+
     public Set<Role> getRoles() {
         return roles;
     }

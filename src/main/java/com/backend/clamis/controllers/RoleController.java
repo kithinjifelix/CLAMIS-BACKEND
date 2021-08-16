@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/roles")
@@ -19,6 +20,12 @@ public class RoleController {
     @GetMapping("/get")
     public List<Role> getRoles() {
         return roleRepository.findAll();
+    }
+
+    @GetMapping("/get/{roleId}")
+    public Optional<Role> getRole(@PathVariable Long roleId) {
+        Optional<Role> role = roleRepository.findById(roleId);
+        return role;
     }
 
     @PostMapping("/create")

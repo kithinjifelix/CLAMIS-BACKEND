@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/organisations")
@@ -19,6 +20,11 @@ public class OrganisationController {
     @GetMapping("/get")
     public List<Organisation> getOrganisations() {
         return organisationRepository.findAll();
+    }
+
+    @GetMapping("/get/{organisationId}")
+    public Optional<Organisation> getOrganisation(@PathVariable Long organisationId) {
+        return organisationRepository.findById(organisationId);
     }
 
     @PostMapping("/create")
