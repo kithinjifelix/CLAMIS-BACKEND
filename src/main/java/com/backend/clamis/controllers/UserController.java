@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -57,8 +56,8 @@ public class UserController {
     }
 
     @GetMapping("/get/{userId}")
-    public Optional<User> getUser(@PathVariable Long userId) {
-        return userRepository.findById(userId);
+    public User getUser(@PathVariable Long userId) {
+        return userRepository.findById(userId).get();
     }
 
     @GetMapping("/getByOrganization/{organisationId}")
@@ -66,20 +65,33 @@ public class UserController {
         return userRepository.findByOrganisationId(organisationId);
     }
 
-    @PutMapping("/put/{userId}")
-    public User updateUser(@PathVariable Long userId,
+    @PutMapping("/put/{userId}/{organisationId}/{roleId}")
+    public ResponseEntity<?> updateUser(@PathVariable Long userId, @PathVariable Long organisationId, @PathVariable Long roleId,
                            @Valid @RequestBody UpdateUserRequest updateUserRequest) {
-        return userRepository.findById(userId)
-                .map(user -> {
-                    user.setFirstName(updateUserRequest.getFirstName());
-                    user.setMiddleName(updateUserRequest.getMiddleName());
-                    user.setLastName(updateUserRequest.getLastName());
-                    user.setUsername(updateUserRequest.getUsername());
-                    user.setEmail(updateUserRequest.getEmail());
-                    user.setPhone(updateUserRequest.getPhone());
+        try {
+            User user = userRepository.getById(userId);
+            user.setFirstName(updateUserRequest.getFirstName());
+            user.setMiddleName(updateUserRequest.getMiddleName());
+            user.setLastName(updateUserRequest.getLastName());
+            user.setUsername(updateUserRequest.getUsername());
+            user.setEmail(updateUserRequest.getEmail());
+            user.setPhone(updateUserRequest.getPhone());
 
-                    return userRepository.save(user);
-                }).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
+            Set<Role> roles = new HashSet<>();
+            Role selectedRole = roleRepository.getById(roleId);
+            roles.add(selectedRole);
+
+            organisationRepository.findById(organisationId)
+                    .map(organisation -> {
+                        user.setOrganisation(organisation);
+                        user.setRoles(roles);
+                        return userRepository.save(user);
+                    }).orElseThrow(() -> new ResourceNotFoundException("Organisation not found with id " + organisationId));
+
+            return ResponseEntity.ok(new MessageResponse("User updated successfully!"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
     }
 
     @PostMapping("/create/{organisationId}/{roleId}")
