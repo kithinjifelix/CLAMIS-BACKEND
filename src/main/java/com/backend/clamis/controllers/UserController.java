@@ -1,6 +1,7 @@
 package com.backend.clamis.controllers;
 
 import com.backend.clamis.exception.ResourceNotFoundException;
+import com.backend.clamis.model.Organisation;
 import com.backend.clamis.model.Role;
 import com.backend.clamis.model.User;
 import com.backend.clamis.payload.request.LoginRequest;
@@ -58,6 +59,11 @@ public class UserController {
     @GetMapping("/get/{userId}")
     public User getUser(@PathVariable Long userId) {
         return userRepository.findById(userId).get();
+    }
+
+    @GetMapping("/getUserOrganisation/{userId}")
+    public Organisation getUserOrganisation(@PathVariable Long userId) {
+        return userRepository.findById(userId).get().getOrganisation();
     }
 
     @GetMapping("/getByOrganization/{organisationId}")
