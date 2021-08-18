@@ -61,14 +61,19 @@ public class UserController {
         return userRepository.findById(userId).get();
     }
 
-    @GetMapping("/getUserOrganisation/{userId}")
-    public Organisation getUserOrganisation(@PathVariable Long userId) {
-        return userRepository.findById(userId).get().getOrganisation();
-    }
-
     @GetMapping("/getByOrganization/{organisationId}")
     public List<User> findByOrganisationId(@PathVariable Long organisationId) {
         return userRepository.findByOrganisationId(organisationId);
+    }
+
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
+        try {
+            userRepository.deleteById(userId);
+            return ResponseEntity.ok(new MessageResponse("User deleted successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
     }
 
     @PutMapping("/put/{userId}/{organisationId}/{roleId}")
