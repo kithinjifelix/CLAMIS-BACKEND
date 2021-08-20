@@ -1,0 +1,2 @@
+INSERT INTO organisations(name, description, contact, email, phone, created_at, updated_at)
+VALUES ('USAID', '', 'John Gichangi', 'admin@usaid.org', '', '2021-08-20 00:22:45.589545', '2021-08-20 00:22:45.589545');

@@ -1,0 +1,2 @@
+INSERT INTO users(first_name, middle_name, last_name, email, phone, username, password, organisation_id, created_at, updated_at)
+VALUES ('Admin', '', 'Admin', 'admin@usaid.org', '', 'admin@usaid.org', '$2a$10$hjGZHQ2GkfO8L92EVnOkJ.z0XWnlaDrxRhoIgoMAV.HNqreRICvJG', 1, '2021-08-20 00:22:45.589545', '2021-08-20 00:22:45.589545');
