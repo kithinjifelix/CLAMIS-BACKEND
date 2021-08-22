@@ -24,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,6 +60,14 @@ public class UserController {
     @GetMapping("/get/{userId}")
     public User getUser(@PathVariable Long userId) {
         return userRepository.findById(userId).get();
+    }
+
+    @GetMapping("/getLoggedInUser")
+    public ResponseEntity<?> getLoggedInUser(Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
+        HashMap<String, Object> user = new HashMap<String, Object>();
+        user.put("user", userRepository.findById(userDetails.getId()).get());
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/getByOrganization/{organisationId}")
