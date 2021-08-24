@@ -162,13 +162,11 @@ public class UserController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                                                userDetails.getId(),
-                                                userDetails.getUsername(),
-                                                userDetails.getEmail(),
-                                                userDetails.getName(),
-                                                roles));
+        /*HashMap<String, Object> user = new HashMap<String, Object>();
+        user.put("user", userRepository.findById(userDetails.getId()).get());
+        return ResponseEntity.ok(user);*/
+
+        return ResponseEntity.ok(new JwtResponse(jwt, userRepository.findById(userDetails.getId()).get()));
     }
 }

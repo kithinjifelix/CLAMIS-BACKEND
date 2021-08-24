@@ -19,15 +19,12 @@ public class Organisation extends AuditModel {
     @Column(columnDefinition = "text")
     private String description;
 
-    @NotBlank
     @Size(max = 50)
     private String contact;
 
-    @NotBlank
     @Size(max = 25)
     private String email;
 
-    @NotBlank
     @Size(max = 20)
     private String phone;
 
