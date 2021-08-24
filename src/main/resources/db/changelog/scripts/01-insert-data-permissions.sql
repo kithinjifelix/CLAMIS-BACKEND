@@ -7,3 +7,6 @@ insert into permissions(name, created_at, updated_at) VALUES ('Accounts-Roles-De
 insert into permissions(name, created_at, updated_at) VALUES ('Accounts-Organisations-Create', '2021-08-20 00:22:45.589545', '2021-08-20 00:22:45.589545');
 insert into permissions(name, created_at, updated_at) VALUES ('Accounts-Organisations-Update', '2021-08-20 00:22:45.589545', '2021-08-20 00:22:45.589545');
 insert into permissions(name, created_at, updated_at) VALUES ('Accounts-Organisations-Delete', '2021-08-20 00:22:45.589545', '2021-08-20 00:22:45.589545');
+insert into permissions(name, created_at, updated_at) VALUES ('Accounts-Users-View', '2021-08-20 00:22:45.589545', '2021-08-20 00:22:45.589545');
+insert into permissions(name, created_at, updated_at) VALUES ('Accounts-Roles-View', '2021-08-20 00:22:45.589545', '2021-08-20 00:22:45.589545');
+insert into permissions(name, created_at, updated_at) VALUES ('Accounts-Organisations-View', '2021-08-20 00:22:45.589545', '2021-08-20 00:22:45.589545');
