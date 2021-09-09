@@ -329,4 +329,49 @@ databaseChangeLog:
           relativeToChangelogFile: true
           splitStatements: true
           stripComments: true
+- changeSet:
+      id: 1629453981442-18
+      author: Felix (generated)
+      changes:
+          - createTable:
+                columns:
+                - column:
+                      autoIncrement: true
+                      constraints:
+                          nullable: false
+                          primaryKey: true
+                          primaryKeyName: patients_pkey
+                      name: id
+                      type: BIGINT
+                - column:
+                      constraints:
+                          nullable: false
+                      name: created_at
+                      type: TIMESTAMP WITHOUT TIME ZONE
+                - column:
+                      constraints:
+                          nullable: false
+                      name: updated_at
+                      type: TIMESTAMP WITHOUT TIME ZONE
+                - column:
+                      constraints:
+                          nullable: false
+                      name: patient_id
+                      type: BIGINT
+                - column:
+                      name: names
+                      type: VARCHAR(255)
+                - column:
+                      name: dob
+                      type: TIMESTAMP WITHOUT TIME ZONE
+                - column:
+                      name: gender
+                      type: VARCHAR(255)
+                - column:
+                      name: last_updated
+                      type: TIMESTAMP WITHOUT TIME ZONE
+                - column:
+                      name: url
+                      type: VARCHAR(255)
+                tableName: patients
 
